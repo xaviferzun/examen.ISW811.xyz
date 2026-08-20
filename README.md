@@ -21,7 +21,6 @@ Permite registrar, listar, editar, eliminar y filtrar solicitudes basicas de sop
 - PHP 8.2 o superior
 - Composer
 - MariaDB
-- Node.js y npm (para compilar los assets)
 
 ## Instalacion de dependencias PHP
 
@@ -57,15 +56,6 @@ CREATE DATABASE examen_isw811_xyz;
 CREATE USER 'examenuser'@'localhost' IDENTIFIED BY 'secret';
 GRANT ALL PRIVILEGES ON examen_isw811_xyz.* TO 'examenuser'@'localhost';
 FLUSH PRIVILEGES;
-```
-
-## Preparar la aplicacion
-
-Instalar dependencias de Node y compilar los assets:
-
-```bash
-npm install
-npm run build
 ```
 
 ## Migrar la base de datos y añadir las categorias iniciales
