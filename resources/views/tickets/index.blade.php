@@ -3,12 +3,25 @@
 @section('title', 'Solicitudes')
 
 @section('content')
+    @php
+        //Adicional, añadi colores y etiquetas legibles para cada estado 
+        $statusBadges = [
+            'pending' => 'bg-secondary',
+            'in_progress' => 'bg-warning text-dark',
+            'resolved' => 'bg-success',
+        ];
+        $statusLabels = [
+            'pending' => 'Pendiente',
+            'in_progress' => 'En progreso',
+            'resolved' => 'Resuelto',
+        ];
+    @endphp
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1>Solicitudes de soporte</h1>
         <a href="{{ route('tickets.create') }}" class="btn btn-primary">Nueva solicitud</a>
     </div>
 
-    {{-- Filtros --}}
+    
     <form method="GET" class="row g-2 mb-4">
         <div class="col-auto">
             <select name="category_id" class="form-select" onchange="this.form.submit()">
@@ -37,7 +50,8 @@
         @endif
     </form>
 
-    <table class="table table-bordered bg-white">
+    
+    <table class="table table-bordered">
         <thead>
             <tr>
                 <th>ID</th>
@@ -54,10 +68,11 @@
                     <td>{{ $ticket->id }}</td>
                     <td>{{ $ticket->title }}</td>
                     <td>{{ $ticket->category->name }}</td>
-                    <td>{{ $ticket->status }}</td>
+                    {{-- <td>{{ $ticket->status }}</td> --}}
+                    <td><span class="badge {{$statusBadges[$ticket->status]}}">{{$statusLabels[$ticket->status]}}</span></td>
                     <td>{{ $ticket->created_at->format('d/m/Y H:i') }}</td>
                     <td>
-                        <a href="{{ route('tickets.edit', $ticket) }}" class="btn btn-sm btn-warning">Editar</a>
+                        <a href="{{ route('tickets.edit', $ticket) }}" class="btn btn-sm btn-info">Editar</a>
                         <form action="{{ route('tickets.destroy', $ticket) }}" method="POST" class="d-inline"
                               onsubmit="return confirm('Eliminar esta solicitud?')">
                             @csrf
